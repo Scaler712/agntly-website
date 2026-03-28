@@ -1,0 +1,28 @@
+# Agntly
+
+> Agntly is an AI agents company. We build custom AI agents that integrate with business tools, live in communication channels like Slack and Discord, adopt internal SOPs, work with private company data, and automate manual processes. We also build open-source developer tools for the AI agent ecosystem.
+
+Agntly was founded by Kristians Refs. The company is registered as Agntly LLC, based in —, Wyoming, United States.
+
+We operate in two areas:
+
+- AI Agent Solutions for Business: Custom agents that plug into existing tools (Slack, Discord, Gmail, Google Drive, Notion, Monday.com, and more), work with private company data enriched with external sources, and deliver measurable business outcomes. Our agents adopt your standard operating procedures and live inside your communication channels.
+- Open-Source Developer Tools: CLI tools and infrastructure that AI agents run on. Built in public on GitHub. Designed for production use by developers and AI agents alike.
+
+## Open Source Tools
+
+- [n8n-cli](https://agntly.io/tools/n8n-cli/): AI-agent-friendly CLI for n8n workflow automation. Node-level inspect, patch, and update operations via a parser abstraction layer — so agents can modify individual nodes without rewriting entire workflows. Built in Go. MIT license.
+- [x-cli](https://agntly.io/tools/x-cli/): Reverse-engineered CLI for X (Twitter). Fetch timelines, search tweets, pull user profiles, and follower lists via X's internal GraphQL API — no API key required, completely free. Built in Go. MIT license.
+
+## Links
+
+- [Homepage](https://agntly.io/)
+- [GitHub](https://github.com/agntly-io)
+- [n8n-cli on GitHub](https://github.com/agntly-io/n8n-cli)
+- [x-cli on GitHub](https://github.com/agntly-io/x-cli)
+
+## Contact
+
+- Email: hello@agntly.io
+- WhatsApp: #
+- Telegram: @agntly

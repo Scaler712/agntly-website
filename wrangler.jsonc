@@ -1,0 +1,10 @@
+{
+  "name": "agntly-website",
+  "compatibility_date": "2026-03-16",
+  "main": "src/worker.js",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  }
+}

@@ -1,0 +1,165 @@
+# Agntly
+
+> Agntly is an AI agents company. We build custom AI agents that integrate with business tools, live in communication channels like Slack and Discord, adopt internal SOPs, work with private company data, and automate manual processes. We also build open-source developer tools for the AI agent ecosystem.
+
+Agntly was founded by Kristians Refs. The company is registered as Agntly LLC, based at —, —, United States.
+
+## What Agntly Does
+
+We operate in two areas:
+
+### 1. AI Agent Solutions for Business
+
+We design and deploy AI agents that plug into your existing tools, live in Slack or Discord, adopt your standard operating procedures, enrich your data, interact with your private company knowledge, and automate the tedious manual work still burning human hours. Agents that empower your team to do more.
+
+Our agents integrate with: Discord, Slack, Gmail, OneDrive, AWS, Google Cloud, OpenAI, Zapier, Anthropic, n8n, Google Drive, Monday.com, Notion, Telegram, Excel, ClickUp, LinkedIn, and more.
+
+### 2. Open-Source Developer Tools
+
+We build the developer infrastructure that agents run on — CLI tools, deployment scripts, orchestration utilities, and runtime frameworks. Open-source, built in public, designed for the builders shaping the agent ecosystem.
+
+## Our Approach
+
+What makes our agents different:
+
+- **Result-Oriented**: Every agent is built around a measurable business outcome. We define success before writing a single line of code, and we hold ourselves to it.
+- **Production Stable**: Demos are easy. Production is hard. Our agents are built for uptime, graceful failure handling, and consistent performance over months, not minutes.
+- **Open-Source First**: Our developer tools are built in public on GitHub. We believe the agent ecosystem grows faster when foundational tooling is shared and community-driven.
+- **End-to-End Ownership**: We don't hand off a spec and disappear. We build, deploy, monitor, and iterate on your agents. Full lifecycle, full accountability.
+- **Secure by Default**: Every agent operates within defined security boundaries. Data isolation, access controls, and audit logging are built in from day one — not bolted on after.
+- **Technical Excellence**: We are expert software developers who actively contribute to the open-source AI agent ecosystem. We hold ourselves to the highest industry standards — every agent we deliver reflects that quality bar.
+
+## Open Source Tools
+
+### n8n-cli
+
+AI-agent-friendly CLI for n8n workflow automation. Node-level inspect, patch, and update operations via a parser abstraction layer — so agents can modify individual nodes without rewriting entire workflows. Built in Go. MIT License.
+
+- GitHub: https://github.com/agntly-io/n8n-cli
+- Page: https://agntly.io/tools/n8n-cli/
+
+#### The Problem
+
+The native n8n REST API only offers workflow-level CRUD. To change a single node, you have to GET the full workflow JSON, find the node, edit it, and PUT the entire blob back. That's fine for humans — but completely impractical for AI agents that need to make surgical, targeted changes.
+
+#### The Solution
+
+n8n-cli builds an abstraction on top of the standard n8n API. It parses workflow JSON, assigns stable references to every node, lets agents write targeted patches for individual nodes, and handles the full workflow update under the hood. The flow is: Fetch & parse workflow -> Mutate target node -> Rehydrate & save.
+
+#### Capabilities
+
+- **Inspect Nodes**: List all nodes, get structured details, extract specific parameter values by dot-path. Multiple output views: summary, details, JSON, params, connections. Example: `n8n-cli node get <wf> n0 --view params`
+- **Surgical Patches**: Update individual parameters with --set, remove with --unset, or deep-merge from a JSON file. Each update shows a before/after diff of changed fields. Example: `n8n-cli node update <wf> n1 --set parameters.url=...`
+- **Stable References**: Every node gets a stable ref (n0, n1, ...) by array position. Agents can address nodes without fragile name lookups. Also supports id: and name: selectors.
+- **Graph Analysis**: Analyze workflow topology: roots, leaves, topological order, cycle detection, branching points, and orphan nodes. Agents can reason about workflow structure. Example: `n8n-cli graph inspect <wf> --with-cycles`
+- **Create & Connect**: Create nodes from JSON or CLI flags, wire connections with specific input/output indexes, and cascade-delete or bridge-delete nodes while preserving graph integrity. Example: `n8n-cli node create <wf> --connect-from n0`
+- **Dry Run**: Every mutating command supports --dry-run to preview changes without saving. Agents can validate their patches before committing, reducing errors to zero. Example: `n8n-cli node update <wf> n1 --set ... --dry-run`
+
+#### Architecture
+
+```
+cmd/                # Cobra commands (thin: parse flags -> call service -> format)
+  workflow.go       # CRUD, activate, deactivate, inspect
+  node.go           # list, get, create, update, delete, rename, move
+  connection.go     # list, create, delete edges
+  graph.go          # topology analysis
+
+internal/
+  client/           # n8n REST API client (Resty)
+  parser/           # THE CORE — fetch, parse, mutate, rehydrate, save
+    parser.go       # Parse, Rehydrate, ResolveRef, ExtractPath
+    mutate.go       # AddNode, UpdateNode, RemoveNode, AddEdge
+    graph.go        # AnalyzeGraph (roots, leaves, topo sort, cycles)
+  service/          # Orchestration layer (client + parser)
+  output/           # Formatting (summary/details/json/params)
+```
+
+---
+
+### x-cli
+
+Reverse-engineered CLI for X (Twitter). Fetch timelines, search tweets, pull user profiles, and follower lists via X's internal GraphQL API — no API key required, completely free. Built in Go. MIT License.
+
+- GitHub: https://github.com/agntly-io/x-cli
+- Page: https://agntly.io/tools/x-cli/
+
+#### The Problem
+
+X's official API costs $100/month for basic access and $5,000+/month for anything meaningful. Most endpoints are restricted, rate limits are aggressive, and the free tier is practically useless. For AI agents that need to read timelines, search content, or analyze profiles — the door is closed.
+
+#### The Solution
+
+x-cli uses the same internal GraphQL API that the X web app itself uses. We reverse-engineered its endpoints, authentication flow, and query structure — giving agents full read access to timelines, search, profiles, and social graphs without paying for a single API key. The flow is: Browser auth -> Internal GraphQL -> Structured output.
+
+#### Capabilities
+
+- **Timelines**: Fetch the home timeline or any user's tweet history. Supports pagination with cursors and auto-paginate mode for bulk data collection across multiple pages. Example: `x-cli timeline user @elonmusk --all --max-pages 5`
+- **Search**: Full search across X with multiple result types: top, latest, people, and media. The same search power the web app provides — available from the command line. Example: `x-cli search "breaking news" --type latest`
+- **User Profiles**: Pull complete user profiles with bio, follower counts, verification status, and all public metadata. Structured data ready for agent consumption. Example: `x-cli user get @agntly`
+- **Social Graph**: Retrieve follower and following lists for any public account. Paginated and structured — ideal for agents building relationship maps or audience analysis. Example: `x-cli followers @agntly --count 50`
+- **Tweet Lookup**: Fetch any individual tweet by ID or full URL. Get complete tweet data including engagement metrics, replies context, and media attachments. Example: `x-cli tweet get https://x.com/user/status/123...`
+- **JSON Output**: Every command supports --json for raw API output and --verbose for debugging. Designed for agent pipelines — structured data in, structured data out. Example: `x-cli timeline home --json | jq '.tweets'`
+
+#### Architecture
+
+```
+cmd/                    # Cobra CLI commands
+  auth.go               # Browser login flow (Chrome)
+  timeline.go           # Home & user timelines
+  search.go             # Search across all content types
+  user.go               # Profile lookup
+  tweet.go              # Individual tweet fetch
+  followers.go          # Follower & following lists
+
+internal/
+  api/                  # GraphQL client & endpoint registry
+  auth/                 # Browser auth & credential storage
+  models/               # Domain types (Tweet, User, Timeline)
+  output/               # Pretty-print & JSON formatting
+```
+
+## The Vision
+
+"The next wave of software won't be built entirely by people. It will be built by agents that execute, coordinate, and deliver outcomes on behalf of businesses and their customers. Agntly builds the agents — and the tools those agents run on." — Agntly Team
+
+## FAQ
+
+**What exactly does Agntly do?**
+We build custom AI agents that integrate with the tools your team already uses, live inside your communication channels like Slack or Discord, and follow your internal standard operating procedures. Our agents work with your private company data, enrich it with external sources, and automate the manual processes that are still burning human hours. We also build open-source developer tools for the broader AI agent ecosystem.
+
+**I already have AI agents or pipelines. Can you still help?**
+Absolutely. We build custom tools, integrations, and infrastructure for existing AI agent setups. Whether you need better orchestration, new platform integrations, improved data pipelines, or monitoring — we plug into your current stack and make it stronger.
+
+**How do your agents actually work inside our company?**
+Your agents live where your team already works — Slack, Discord, email, or any communication channel you use. They adopt your SOPs, access your private data to extract meaningful insights, pull external data to enrich what you already have, and handle the repetitive processes your team currently does manually.
+
+**How is this different from ChatGPT or other AI tools?**
+General-purpose AI tools answer questions. Our agents do actual work. They plug into your tools, follow your processes, coordinate across systems, and deliver measurable outcomes — autonomously.
+
+**What level of technical quality should we expect?**
+We are expert software developers who actively contribute to the open-source AI agent ecosystem. Every agent we deliver meets the highest industry standards for code quality, security, and reliability. Production-stable systems built for uptime, graceful failure handling, and consistent performance over months.
+
+**What does the engagement process look like?**
+We start by understanding your business goals, your existing tools, and the outcomes you need. From there, we scope the work, design the agent architecture, build and test it, deploy to production, and monitor performance. We own the full lifecycle and iterate with you.
+
+**Your tooling is open-source. What's the catch?**
+No catch. Our developer tools are genuinely open-source and free to use. We contribute to the ecosystem because we believe it grows faster when foundational tooling is shared. Our business is in the expertise: designing, building, and deploying custom agent solutions.
+
+## Contact
+
+- Email: hello@agntly.io
+- WhatsApp: #
+- Telegram: @agntly
+- GitHub: https://github.com/agntly-io
+
+We typically respond within 10 hours.
+
+## Links
+
+- [Homepage](https://agntly.io/)
+- [LinkedIn](#)
+- [n8n-cli Tool Page](https://agntly.io/tools/n8n-cli/)
+- [x-cli Tool Page](https://agntly.io/tools/x-cli/)
+- [GitHub Organization](https://github.com/agntly-io)
+- [n8n-cli on GitHub](https://github.com/agntly-io/n8n-cli)
+- [x-cli on GitHub](https://github.com/agntly-io/x-cli)

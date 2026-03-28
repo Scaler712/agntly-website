@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>n8n-cli — Node-Level Control for AI Agents | Agntly</title>
+  <meta name="description" content="AI-agent-friendly CLI for n8n workflow automation. Inspect, patch, and update individual nodes without rewriting entire workflows. Built by Agntly.">
+  <link rel="canonical" href="https://agntly.io/tools/n8n-cli/">
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="n8n-cli — Node-Level Control for AI Agents">
+  <meta property="og:description" content="AI-agent-friendly CLI for n8n workflow automation. Node-level inspect, patch, and update operations via a parser abstraction layer.">
+  <meta property="og:url" content="https://agntly.io/tools/n8n-cli/">
+  <meta property="og:site_name" content="Agntly">
+  <meta property="og:image" content="https://agntly.io/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="en_US">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="n8n-cli — Node-Level Control for AI Agents">
+  <meta name="twitter:description" content="AI-agent-friendly CLI for n8n workflow automation. Node-level inspect, patch, and update operations via a parser abstraction layer.">
+  <meta name="twitter:image" content="https://agntly.io/og-image.png">
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#0e0e0e">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="stylesheet" href="/src/tool-page.css">
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://agntly.io/" },
+      { "@type": "ListItem", "position": 2, "name": "Open Source", "item": "https://agntly.io/#open-source" },
+      { "@type": "ListItem", "position": 3, "name": "n8n-cli" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav-wrapper">
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/agntly-logo.png" alt="Agntly" class="logo-img">
+  </a>
+  <div class="nav-center">
+    <a href="/#solutions" data-i18n="nav.solutions">Solutions</a>
+    <a href="/#agents" data-i18n="nav.agents">Agents</a>
+    <a href="/#open-source" data-i18n="nav.opensource">Open Source</a>
+    <a href="/#vision" data-i18n="nav.vision">Vision</a>
+    <a href="/#faq" data-i18n="nav.faq">FAQ</a>
+    <a href="/#contact" data-i18n="nav.contact">Contact</a>
+    <button class="nav-cta nav-cta-mobile" data-i18n="nav.cta" onclick="window.location.href='/#open-source'">View Ecosystem</button>
+  </div>
+  <button class="nav-cta nav-cta-desktop" data-i18n="nav.cta" onclick="window.location.href='/#open-source'">View Ecosystem</button>
+  <button class="nav-toggle" aria-label="Menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/>
+    </svg>
+  </button>
+</nav>
+</div>
+
+<!-- TOOL HERO -->
+<section class="tool-hero">
+  <div class="tool-hero-inner">
+    <div class="tool-breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/#open-source">Open Source</a>
+      <span>/</span>
+      <span class="current">n8n-cli</span>
+    </div>
+    <div class="tool-hero-badge">
+      <span class="lang-dot go"></span> Go
+      <span class="sep">|</span>
+      MIT License
+      <span class="sep">|</span>
+      Open Source
+    </div>
+    <h1>n8n-cli</h1>
+    <p class="tool-hero-sub">AI-agent-friendly CLI for <a href="https://n8n.io" target="_blank" rel="noopener">n8n</a> workflow automation. Node-level inspect, patch, and update operations via a parser abstraction layer — so agents can modify individual nodes without rewriting entire workflows.</p>
+    <div class="tool-hero-actions">
+      <a href="https://github.com/agntly-io/n8n-cli" target="_blank" rel="noopener" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        <span data-i18n="tool.view.github">View on GitHub</span>
+      </a>
+      <a href="#how-it-works" class="btn-secondary"><span data-i18n="tool.how">How It Works</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section class="tool-section">
+  <div class="section-inner">
+    <div class="tool-two-col">
+      <div>
+        <span class="section-label">The Problem</span>
+        <h2 class="section-title">n8n's API was never built<br>for <em>agents</em></h2>
+        <p class="section-desc">The native n8n REST API only offers workflow-level CRUD. To change a single node, you have to GET the full workflow JSON, find the node, edit it, and PUT the entire blob back. That's fine for humans — but completely impractical for AI agents that need to make surgical, targeted changes.</p>
+      </div>
+      <div class="tool-problem-visual">
+        <div class="terminal">
+          <div class="comment"># Without n8n-cli: the painful way</div>
+          <div><span class="prompt">1.</span> <span class="output">GET /api/v1/workflows/123</span></div>
+          <div><span class="prompt">2.</span> <span class="output">Parse 2,000+ lines of JSON</span></div>
+          <div><span class="prompt">3.</span> <span class="output">Find "HTTP Request" node in nodes[]</span></div>
+          <div><span class="prompt">4.</span> <span class="output">Modify the URL parameter</span></div>
+          <div><span class="prompt">5.</span> <span class="output">PUT entire workflow JSON back</span></div>
+          <div>&nbsp;</div>
+          <div class="comment"># Hope nothing else changed in between</div>
+          <div class="comment"># Hope you didn't break a connection</div>
+          <div class="comment"># Hope the JSON is still valid</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE SOLUTION -->
+<section class="tool-section" id="how-it-works">
+  <div class="section-inner">
+    <div class="tool-two-col reverse">
+      <div class="tool-solution-visual">
+        <div class="terminal">
+          <div class="comment"># With n8n-cli: one command</div>
+          <div><span class="prompt">$</span> n8n-cli node update 123 n1 <span class="flag">--set</span> parameters.url=https://new-api.com</div>
+          <div>&nbsp;</div>
+          <div class="output">Patching node n1 "HTTP Request"...</div>
+          <div class="success">  parameters.url:</div>
+          <div class="output">    - https://old-api.com/v1</div>
+          <div class="success">    + https://new-api.com</div>
+          <div>&nbsp;</div>
+          <div class="success">✓ Node updated successfully</div>
+        </div>
+      </div>
+      <div>
+        <span class="section-label">The Solution</span>
+        <h2 class="section-title">A parser layer that gives agents<br><em>node-level control</em></h2>
+        <p class="section-desc">n8n-cli builds an abstraction on top of the standard n8n API. It parses workflow JSON, assigns stable references to every node, lets agents write targeted patches for individual nodes, and handles the full workflow update under the hood.</p>
+        <div class="tool-flow">
+          <div class="tool-flow-step">
+            <div class="tool-flow-num">1</div>
+            <span>Fetch & parse workflow</span>
+          </div>
+          <div class="tool-flow-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="tool-flow-step">
+            <div class="tool-flow-num">2</div>
+            <span>Mutate target node</span>
+          </div>
+          <div class="tool-flow-arrow">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="tool-flow-step">
+            <div class="tool-flow-num">3</div>
+            <span>Rehydrate & save</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KEY CAPABILITIES -->
+<section class="tool-section tool-section-alt">
+  <div class="section-inner">
+    <div class="tool-center-header">
+      <span class="section-label">Capabilities</span>
+      <h2 class="section-title">What agents can do<br>with <em>n8n-cli</em></h2>
+    </div>
+    <div class="tool-features-grid">
+      <div class="tool-feature-card">
+        <div class="tool-feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <h3>Inspect Nodes</h3>
+        <p>List all nodes, get structured details, extract specific parameter values by dot-path. Multiple output views: summary, details, JSON, params, connections.</p>
+        <div class="tool-feature-cmd">n8n-cli node get &lt;wf&gt; n0 --view params</div>
+      </div>
+      <div class="tool-feature-card">
+        <div class="tool-feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        </div>
+        <h3>Surgical Patches</h3>
+        <p>Update individual parameters with --set, remove with --unset, or deep-merge from a JSON file. Each update shows a before/after diff of changed fields.</p>
+        <div class="tool-feature-cmd">n8n-cli node update &lt;wf&gt; n1 --set parameters.url=...</div>
+      </div>
+      <div class="tool-feature-card">
+        <div class="tool-feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3>Stable References</h3>
+        <p>Every node gets a stable ref (n0, n1, ...) by array position. Agents can address nodes without fragile name lookups. Also supports id: and name: selectors.</p>
+        <div class="tool-feature-cmd">ref:n0 | id:abc-123 | name:"HTTP Request"</div>
+      </div>
+      <div class="tool-feature-card">
+        <div class="tool-feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Graph Analysis</h3>
+        <p>Analyze workflow topology: roots, leaves, topological order, cycle detection, branching points, and orphan nodes. Agents can reason about workflow structure.</p>
+        <div class="tool-feature-cmd">n8n-cli graph inspect &lt;wf&gt; --with-cycles</div>
+      </div>
+      <div class="tool-feature-card">
+        <div class="tool-feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <h3>Create & Connect</h3>
+        <p>Create nodes from JSON or CLI flags, wire connections with specific input/output indexes, and cascade-delete or bridge-delete nodes while preserving graph integrity.</p>
+        <div class="tool-feature-cmd">n8n-cli node create &lt;wf&gt; --connect-from n0</div>
+      </div>
+      <div class="tool-feature-card">
+        <div class="tool-feature-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Dry Run</h3>
+        <p>Every mutating command supports --dry-run to preview changes without saving. Agents can validate their patches before committing, reducing errors to zero.</p>
+        <div class="tool-feature-cmd">n8n-cli node update &lt;wf&gt; n1 --set ... --dry-run</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="tool-section">
+  <div class="section-inner">
+    <div class="tool-center-header">
+      <span class="section-label">Architecture</span>
+      <h2 class="section-title">Built with <em>precision</em></h2>
+      <p class="section-desc" style="max-width:640px;margin:0 auto">Clean separation between CLI, parser, and API client. The parser is the core — it's what makes node-level operations possible on top of a workflow-level API.</p>
+    </div>
+    <div class="tool-arch-visual">
+      <div class="terminal" style="max-width:700px;margin:0 auto">
+        <div class="comment"># Architecture</div>
+        <div>&nbsp;</div>
+        <div class="output">cmd/                <span class="comment"># Cobra commands (thin: parse flags -> call service -> format)</span></div>
+        <div class="output">  workflow.go       <span class="comment"># CRUD, activate, deactivate, inspect</span></div>
+        <div class="output">  node.go           <span class="comment"># list, get, create, update, delete, rename, move</span></div>
+        <div class="output">  connection.go     <span class="comment"># list, create, delete edges</span></div>
+        <div class="output">  graph.go          <span class="comment"># topology analysis</span></div>
+        <div>&nbsp;</div>
+        <div class="output">internal/</div>
+        <div class="output">  client/           <span class="comment"># n8n REST API client (Resty)</span></div>
+        <div class="success">  parser/           <span class="comment"># <span class="success">THE CORE — fetch, parse, mutate, rehydrate, save</span></span></div>
+        <div class="output">    parser.go       <span class="comment"># Parse, Rehydrate, ResolveRef, ExtractPath</span></div>
+        <div class="output">    mutate.go       <span class="comment"># AddNode, UpdateNode, RemoveNode, AddEdge</span></div>
+        <div class="output">    graph.go        <span class="comment"># AnalyzeGraph (roots, leaves, topo sort, cycles)</span></div>
+        <div class="output">  service/          <span class="comment"># Orchestration layer (client + parser)</span></div>
+        <div class="output">  output/           <span class="comment"># Formatting (summary/details/json/params)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY THIS MATTERS -->
+<section class="tool-section tool-section-alt">
+  <div class="section-inner">
+    <div class="tool-two-col">
+      <div>
+        <span class="section-label">Why This Matters</span>
+        <h2 class="section-title">The kind of tools<br>we <em>build</em></h2>
+        <p class="section-desc" style="margin-bottom:24px">n8n-cli is a real example of the type of technical work we do at Agntly. We don't build wrappers — we build abstraction layers that solve problems no one else has solved.</p>
+        <p class="section-desc" style="margin-bottom:24px">This tool exists because we needed our AI agents to modify n8n workflows with precision. No existing tool could do it. So we built a parser that breaks workflow JSON into individually addressable nodes, handles all the complexity of n8n's connection model (keyed by node name, not ID), and gives agents the same granular control a human developer would have.</p>
+        <p class="section-desc">This is what we mean by technical excellence. This is the quality bar we hold ourselves to — on every tool we ship, and on every agent we deliver to clients.</p>
+      </div>
+      <div class="tool-stats">
+        <div class="tool-stat">
+          <div class="tool-stat-num">Go 1.22</div>
+          <div class="tool-stat-label">Built in Go for speed and single-binary deployment</div>
+        </div>
+        <div class="tool-stat">
+          <div class="tool-stat-num">26</div>
+          <div class="tool-stat-label">Unit tests covering the parser layer</div>
+        </div>
+        <div class="tool-stat">
+          <div class="tool-stat-num">0</div>
+          <div class="tool-stat-label">n8n API patches needed — works with the standard API</div>
+        </div>
+        <div class="tool-stat">
+          <div class="tool-stat-num">MIT</div>
+          <div class="tool-stat-label">Fully open-source — use it, fork it, build on it</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="final-cta" id="contact">
+  <div class="glow"></div>
+  <div class="final-cta-inner">
+    <span class="section-label" data-i18n="tool.cta.label">Get Started</span>
+    <h2 data-i18n="tool.cta.title">Want agents that can do<br><em>this kind of work</em>?</h2>
+    <p data-i18n="tool.cta.desc">We build custom AI agent solutions with the same technical depth you see in our open-source tools. Let's talk about what your agents could do.</p>
+    <div class="cta-channels">
+      <a href="mailto:hello@agntly.io" class="cta-channel-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>
+        Email Us
+      </a>
+      <a href="#" target="_blank" rel="noopener" class="cta-channel-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="#" target="_blank" rel="noopener" class="cta-channel-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        Telegram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <img src="/agntly-logo.png" alt="Agntly" class="logo-img">
+      </div>
+      <div class="footer-tagline" data-i18n="tool.footer.tagline">AI agents that deliver real results</div>
+      <div class="footer-address">
+        Agntly LLC<br>
+        —<br>
+        —<br>
+        United States
+      </div>
+      <div class="footer-copy" data-i18n="footer.copyright">&copy; 2025 Agntly. All rights reserved.</div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-col">
+        <h4 data-i18n="footer.company">Company</h4>
+        <a href="/#solutions">Solutions</a>
+        <a href="/#agents">Agents</a>
+        <a href="/#vision">Vision</a>
+        <a href="/#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="tool.footer.opensource">Open Source</h4>
+        <a href="/tools/n8n-cli/">n8n-cli</a>
+        <a href="/tools/x-cli/">x-cli</a>
+        <a href="https://github.com/agntly-io" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV TOGGLE
+document.querySelector('.nav-toggle').addEventListener('click', () => {
+  document.querySelector('.nav-center').classList.toggle('open')
+})
+
+// NAV SCROLL EFFECT
+const nav = document.querySelector('nav')
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40)
+})
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal')
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('visible')
+    })
+  },
+  { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+)
+reveals.forEach((el) => observer.observe(el))
+
+</script>
+</body>
+</html>
