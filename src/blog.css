@@ -134,7 +134,7 @@
 .blog-post-body blockquote{
   border-left:2px solid var(--accent);
   margin:32px 0;padding:16px 24px;
-  background:rgba(62,207,142,0.03);border-radius:0 8px 8px 0;
+  background:rgba(201,168,76,0.03);border-radius:0 8px 8px 0;
   font-style:italic;color:var(--text-secondary);
 }
 .blog-post-body blockquote p{margin-bottom:0}

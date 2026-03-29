@@ -53,7 +53,7 @@ import './style.css'
         const dist = Math.sqrt(dx * dx + dy * dy)
         if (dist < CONNECT_DIST) {
           const alpha = (1 - dist / CONNECT_DIST) * 0.12
-          ctx.strokeStyle = `rgba(62,207,142,${alpha})`
+          ctx.strokeStyle = `rgba(201,168,76,${alpha})`
           ctx.lineWidth = 0.5
           ctx.beginPath()
           ctx.moveTo(nodes[i].x, nodes[i].y)
@@ -74,7 +74,7 @@ import './style.css'
         n.x += dx * 0.01
         n.y += dy * 0.01
       }
-      ctx.fillStyle = `rgba(62,207,142,0.4)`
+      ctx.fillStyle = `rgba(201,168,76,0.4)`
       ctx.beginPath()
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2)
       ctx.fill()
