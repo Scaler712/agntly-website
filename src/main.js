@@ -22,7 +22,6 @@ import './style.css'
     canvas.style.width = w + 'px'
     canvas.style.height = h + 'px'
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0)
-    // Re-map existing nodes into new bounds (avoids re-scatter on resize)
     if (prevW > 0 && prevH > 0) {
       for (const n of nodes) {
         n.x = (n.x / prevW) * w
@@ -47,7 +46,6 @@ import './style.css'
   function draw() {
     if (w === 0 || h === 0) { requestAnimationFrame(draw); return }
     ctx.clearRect(0, 0, w, h)
-    // connections
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         const dx = nodes[i].x - nodes[j].x
@@ -64,13 +62,11 @@ import './style.css'
         }
       }
     }
-    // nodes
     for (const n of nodes) {
       n.x += n.vx
       n.y += n.vy
       if (n.x < 0 || n.x > w) n.vx *= -1
       if (n.y < 0 || n.y > h) n.vy *= -1
-      // mouse repel
       const dx = n.x - mouse.x
       const dy = n.y - mouse.y
       const dist = Math.sqrt(dx * dx + dy * dy)
@@ -86,7 +82,6 @@ import './style.css'
     requestAnimationFrame(draw)
   }
 
-  // Use ResizeObserver to get real dimensions (fixes first-load on mobile)
   const ro = new ResizeObserver((entries) => {
     for (const entry of entries) {
       const cr = entry.contentRect
@@ -140,11 +135,9 @@ document.querySelector('.nav-toggle').addEventListener('click', () => {
   document.querySelector('.nav-center').classList.toggle('open')
 })
 
-// NAV CTA
-document.querySelectorAll('.nav-cta').forEach((btn) => {
-  btn.addEventListener('click', () => {
+// Close mobile nav on link click
+document.querySelectorAll('.nav-center a').forEach((link) => {
+  link.addEventListener('click', () => {
     document.querySelector('.nav-center').classList.remove('open')
-    window.location.href = '#open-source'
   })
 })
-

@@ -1,46 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://agntly.io/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://agntly.io/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://agntly.io/it/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://agntly.io/"/>
-    <lastmod>2026-03-17</lastmod>
+    <lastmod>2026-03-28</lastmod>
   </url>
   <url>
-    <loc>https://agntly.io/it/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://agntly.io/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://agntly.io/it/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://agntly.io/"/>
-    <lastmod>2026-03-17</lastmod>
-  </url>
-  <url>
-    <loc>https://agntly.io/tools/n8n-cli/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://agntly.io/tools/n8n-cli/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://agntly.io/it/tools/n8n-cli/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://agntly.io/tools/n8n-cli/"/>
-    <lastmod>2026-03-17</lastmod>
-  </url>
-  <url>
-    <loc>https://agntly.io/it/tools/n8n-cli/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://agntly.io/tools/n8n-cli/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://agntly.io/it/tools/n8n-cli/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://agntly.io/tools/n8n-cli/"/>
-    <lastmod>2026-03-17</lastmod>
-  </url>
-  <url>
-    <loc>https://agntly.io/tools/x-cli/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://agntly.io/tools/x-cli/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://agntly.io/it/tools/x-cli/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://agntly.io/tools/x-cli/"/>
-    <lastmod>2026-03-17</lastmod>
-  </url>
-  <url>
-    <loc>https://agntly.io/it/tools/x-cli/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://agntly.io/tools/x-cli/"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://agntly.io/it/tools/x-cli/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://agntly.io/tools/x-cli/"/>
-    <lastmod>2026-03-17</lastmod>
+    <loc>https://agntly.io/blog/</loc>
+    <lastmod>2026-03-28</lastmod>
   </url>
 </urlset>
