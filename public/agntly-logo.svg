@@ -12,5 +12,5 @@
   <line x1="35" y1="35" x2="43" y2="31" stroke="#C9A84C" stroke-width="1" opacity="0.3"/>
   <line x1="32" y1="16" x2="32" y2="32" stroke="#C9A84C" stroke-width="1" opacity="0.2"/>
   <!-- Wordmark -->
-  <text x="58" y="33" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="28" font-weight="600" letter-spacing="-0.5" fill="white">agntly</text>
+  <text x="58" y="33" font-family="'Inter', 'SF Pro Display', -apple-system, sans-serif" font-size="28" font-weight="600" letter-spacing="-0.5" fill="white">Agntly</text>
 </svg>
